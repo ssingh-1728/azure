@@ -23,16 +23,22 @@
    `kubelogin convert-kubeconfig -l azurecli`
 
 
-### Sample Commands
+### Sample K8s Commands
 
-1. List all deployments in all namespaces
-   `kubectl get deployments --all-namespaces=true`
+1. Find the current context
+   `kubectl config current-context`
 
-2. List all deployments in a specific namespace
-   `kubectl get deployments --namespace <>`
+3. List contexts
+   `kubectl config get-contexts`
 
-3. List details about a specific deployment
-   `kubectl describe deployment <> --namespace <>`
+4. Change/set context
+   `kubectl config use-context <context-name>`
 
-4. Get logs for all pods with a specific label
-   `kubectl logs -l <label-key>=<label-value>`
+   Modify current context
+   `kubectl config set-context --current --namespace=<namespace-name>`
+
+6. List pods
+   `kubectl get pods -n <namespace> -l k8s-app=<label>`
+   
+   `kubectl get pods --all-namespaces`
+   
