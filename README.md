@@ -37,8 +37,8 @@
    Modify current context
    `kubectl config set-context --current --namespace=<namespace-name>`
 
-6. List pods
-   `kubectl get pods -n <namespace> -l k8s-app=<label>`
+6. List pods with details 
+   `kubectl get pods -n <namespace> -l k8s-app=<label> -o wide`
    
-   `kubectl get pods --all-namespaces`
+   `kubectl get pods --all-namespaces -o wide`
    
