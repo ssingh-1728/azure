@@ -1,0 +1,22 @@
+name: Execute test script
+
+on:
+  workflow_dispatch: # This allows manual triggering
+
+jobs:
+  execute_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Run the command/script
+        run: |
+          pwd 
+
