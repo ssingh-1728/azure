@@ -21,7 +21,12 @@ jobs:
           eval $(ssh-agent)
           echo succeeded
           ssh-add -l
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | ssh-add - 
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ../private.key
+          sudo chmod 600 ../private.key
           pwd
           ssh-add -l 
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
 
