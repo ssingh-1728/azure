@@ -3,31 +3,32 @@ name: Execute test script
 on:
   workflow_dispatch: # This allows manual triggering
 
+env:
+  # Use the same ssh-agent socket value across all jobs
+  # Useful when a GH action is using SSH behind-the-scenes
+  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+
 jobs:
-  execute_script:
+  job1:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    # Start ssh-agent but set it to use the same ssh_auth_sock value.
+    # The agent will be running in all steps after this, so it
+    # should be one of the first.
+    - name: Setup SSH passphrase
+      env:
+        SSH_PASSPHRASE: ${{secrets.SSH_PASSPHRASE}}
+        SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+      run: |
+        ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+        echo 'echo '!D0ntKn0w' > ~/.ssh_askpass && chmod +x ~/.ssh_askpass
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=None SSH_ASKPASS=~/.ssh_askpass ssh-add - >/dev/null
 
-      #- name: Setup SSH
-      #  uses: webfactory/ssh-agent@v0.9.0
-      #  with:
-      #    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Run the command/script
-        run: |
-          sudo apt install expect
-          eval $(ssh-agent)
-          echo succeeded
-          echo "${SSH_PRIVATE_KEY}" > shivam.priv
-          chmod 400 shivam.priv
-          ls -lrth shivam.priv
-          pwd
-          expect -c 'spawn ssh-add /home/runner/work/learning-azure/learning-azure/shivam.priv; expect "Enter passphrase for /home/runner/work/learning-azure/learning-azure/shivam.priv: "; send "!D0ntKn0w\r"; interact'
-          ssh-add -l
-        shell: bash
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-
+    # Debug print out the added identities. This will prove SSH_AUTH_SOCK
+    # is persisted across job steps
+    - name: Print ssh-add identities
+      runs: ssh-add -l
