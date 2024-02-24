@@ -22,6 +22,8 @@ jobs:
           echo succeeded
           echo "${SSH_PRIVATE_KEY}" > shivam.priv
           cat shivam.priv
+          chmod 400 shivam.priv
+          ls -lrth shivam.priv
           ssh-add -l
         shell: bash
         env:
