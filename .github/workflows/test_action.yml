@@ -24,7 +24,7 @@ jobs:
           echo "${SSH_PRIVATE_KEY}" > shivam.priv
           chmod 400 shivam.priv
           ls -lrth shivam.priv
-          expect -c 'spawn ssh-add shivam.priv; expect "Enter passphrase for (stdin): "; send "!D0ntKn0w\r"; interact'
+          expect -c 'spawn ssh-add shivam.priv; expect "Enter passphrase for shivam.priv: "; send "!D0ntKn0w\r"; interact'
           ssh-add -l
         shell: bash
         env:
