@@ -21,7 +21,7 @@ jobs:
     # should be one of the first.
     - name: Setup SSH passphrase
       env:
-        SSH_PASSPHRASE: ${{secrets.SSH_PASSPHRASE}}
+        #SSH_PASSPHRASE: ${{secrets.SSH_PASSPHRASE}}
         SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
       run: |
         ssh-agent -a $SSH_AUTH_SOCK > /dev/null
