@@ -21,10 +21,7 @@ jobs:
           eval $(ssh-agent)
           echo succeeded
           ssh-add -l
-          whoami
-          uname -a
           ssh-add <(echo "$SSH_PRIVATE_KEY")
-          pwd
           ssh-add -l 
         shell: bash
         env:
