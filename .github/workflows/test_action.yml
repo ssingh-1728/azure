@@ -18,6 +18,11 @@ jobs:
 
       - name: Run the command/script
         run: |
+          ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+          echo succeeded
+          chmod 600 "${SSH_ENV}"
+          . "${SSH_ENV}" > /dev/null
+          #    /usr/bin/ssh-add ~/.ssh/id_rsa;
           ssh-add -l
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | ssh-add - 
           pwd
