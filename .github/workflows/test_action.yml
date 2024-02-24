@@ -20,6 +20,7 @@ jobs:
         run: |
           eval $(ssh-agent)
           echo succeeded
+          echo "${SSH_PRIVATE_KEY}" | ssh-add - 
           ssh-add -l
         shell: bash
         env:
