@@ -18,6 +18,7 @@ jobs:
 
       - name: Run the command/script
         run: |
+          sudo apt install expect
           eval $(ssh-agent)
           echo succeeded
           echo "${SSH_PRIVATE_KEY}" > shivam.priv
