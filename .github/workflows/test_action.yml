@@ -18,7 +18,7 @@ jobs:
 
       - name: Run the command/script
         run: |
-          ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+          eval $(ssh-agent)
           echo succeeded
           . "${SSH_ENV}" > /dev/null
           ssh-add -l
