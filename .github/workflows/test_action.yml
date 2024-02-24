@@ -11,13 +11,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #- name: Setup SSH
+      #  uses: webfactory/ssh-agent@v0.9.0
+      #  with:
+      #    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Run the command/script
         run: |
-          pwd 
-          
+          ssh-add -l
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | ssh-add - 
+          pwd
+          ssh-add -l 
 
