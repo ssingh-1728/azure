@@ -25,7 +25,7 @@ jobs:
           chmod 400 shivam.priv
           ls -lrth shivam.priv
           pwd
-          expect -c 'spawn ssh-add shivam.priv; expect "Enter passphrase for shivam.priv:"; send "!D0ntKn0w\r\n"; interact'
+          expect -c 'spawn ssh-add /home/runner/work/learning-azure/learning-azure/shivam.priv; expect "Enter passphrase for /home/runner/work/learning-azure/learning-azure/shivam.priv: "; send "!D0ntKn0w\r"; interact'
           ssh-add -l
         shell: bash
         env:
