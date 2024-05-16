@@ -41,4 +41,7 @@
    `kubectl get pods -n <namespace> -l k8s-app=<label>`
    
    `kubectl get pods --all-namespaces`
+
+7. Finding master
+   `kubectl cluster-info`
    
